@@ -2,138 +2,309 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Luxury Desiigner Hair</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      color: #fff;
-      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0; background: #fff;
+      color: #333;
     }
     header {
-      background-color: #c62828;
-      padding: 10px;
-      font-size: 1.1em;
+      background: #222;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      z-index: 10;
     }
-    header span {
+    header nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    header nav a:hover {
+      color: #f39c12;
+    }
+
+    /* Hero Slider */
+    .hero-slider {
+      position: relative;
+      height: 80vh;
+      overflow: hidden;
+    }
+    .hero-slider img.slide {
+      position: absolute;
+      width: 100%;
+      height: 80vh;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      pointer-events: none;
+    }
+    .hero-slider img.slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      animation: fadeInSlide 1s ease forwards;
+    }
+    @keyframes fadeInSlide {
+      from {opacity: 0; transform: scale(1.05);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      text-shadow: 0 0 15px rgba(0,0,0,0.7);
+      max-width: 90%;
+    }
+    .hero-text h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+    .hero-text button {
+      background: #f39c12;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #222;
       font-weight: bold;
+      margin: 5px;
+      transition: background 0.3s ease;
     }
-    .logo {https://github.com/youngkens/Hairvendor/blob/87fcf688af442e21f7a856a533e9d3908fffaa8d/logo_resized_final.png
-      margin: 30px 0 10px;
-      width: 150px;
-    }
-    h1 {
-      font-size: 2.5em;
-      color: gold;
-      margin-bottom: 10px;
-    }
-    h2 {
-      font-weight: normal;
+    .hero-text button:hover {
+      background: #e67e22;
       color: white;
     }
-    .buttons a {
-      display: inline-block;
-      background: gold;
-      color: black;
-      padding: 12px 20px;
-      margin: 15px 10px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .section-title {
-      font-size: 1.8em;
-      color: gold;
-      margin: 40px 0 10px;
-    }
-    .products {
+
+    /* Tabs */
+    .tabs {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      padding: 0 10px;
+      background: #f5f5f5;
+      padding: 10px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      margin-top: 0;
     }
-    .product {
-      margin: 20px;
-      background: #111;
-      padding: 10px;
+    .tabs button {
+      background: none;
+      border: none;
+      margin: 0 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 10px 20px;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s ease;
+      font-weight: 600;
+    }
+    .tabs button:hover, .tabs button.active {
+      border-color: #f39c12;
+      color: #f39c12;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px 30px;
+    }
+    .gallery-item {
       border-radius: 10px;
-      width: 150px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 1;
+      transition: opacity 0.5s ease;
     }
-    .product img {
+    .gallery-item:hover {
+      transform: scale(1.07);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .gallery-item.hide {
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      transition: opacity 0.5s ease, height 0.5s ease, margin 0.5s ease, padding 0.5s ease;
+    }
+    .gallery-item img {
       width: 100%;
-      border-radius: 10px;
+      height: 200px;
+      object-fit: cover;
+      display: block;
     }
-    .product-name {
-      color: gold;
-      margin: 10px 0 5px;
-      font-weight: bold;
+    .gallery-item .info {
+      padding: 15px;
+      text-align: center;
     }
-    .price {
+    .gallery-item .info h3 {
+      margin: 10px 0 5px 0;
+      font-size: 1.2rem;
+      color: #222;
+    }
+    .gallery-item .info p {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0 0 10px 0;
+    }
+    .gallery-item .info button {
+      background: #f39c12;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      color: #222;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .gallery-item .info button:hover {
+      background: #e67e22;
       color: white;
     }
-    .contact {
-      margin-top: 40px;
-      font-size: 1em;
-    }
+
     footer {
-      background-color: #111;
+      background: #222;
+      color: #ddd;
+      text-align: center;
       padding: 20px;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #888;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    🌍 <span>WE DELIVER WORLDWIDE</span>
-  </header>
+<header>
+  <div class="logo"><h2>Luxury Desiigner Hair</h2></div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">About Us</a>
+    <a href="#">Book Appointment</a>
+    <a href="#">Contact</a>
+    <a href="#" title="Instagram" aria-label="Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/24/2111/2111463.png" alt="Instagram Icon" />
+    </a>
+  </nav>
+</header>
 
-  <img src="logo_resized_final.png" alt="Luxury Desiigner Hair Logo" class="logo" />
+<!-- Hero Slider -->
+<section class="hero-slider">
+  <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=1200&q=80" alt="Curly Hair Side View" class="slide active" />
+  <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80" alt="Straight Hair Back View" class="slide" />
+  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1200&q=80" alt="Wavy Hair Front View" class="slide" />
+  <img src="https://images.unsplash.com/photo-1542068829-1115f7259450?auto=format&fit=crop&w=1200&q=80" alt="Braided Hair Close-up" class="slide" />
 
-  <h1>Luxury Desiigner Hair</h1>
-  <h2>Your Premium Hair Vendor</h2>
+  <div class="hero-text">
+    <h1>Discover Your Perfect Look with Luxury Desiigner Hair</h1>
+    <button>Shop Now</button>
+    <button>Book Your Style</button>
+  </div>
+</section>
 
-  <div class="buttons">
-    <a href="https://wa.me/2348101594128" target="_blank">Chat on WhatsApp</a>
-    <a href="#book">Book Me</a>
-    <a href="https://www.instagram.com/luxury_desiignerhair?igsh=YmFhMzQ4Z3QxOTdu&utm_source=qr" target="_blank">Instagram</a>
+<!-- Tabs -->
+<div class="tabs">
+  <button class="tab-button active" data-filter="all">All</button>
+  <button class="tab-button" data-filter="wigs">Wigs</button>
+  <button class="tab-button" data-filter="extensions">Extensions</button>
+  <button class="tab-button" data-filter="accessories">Accessories</button>
+</div>
+
+<!-- Gallery -->
+<section class="gallery">
+  <!-- Wigs -->
+  <div class="gallery-item" data-category="wigs" style="display:flex;">
+    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80" alt="Lace Front Wig" />
+    <div class="info">
+      <h3>Lace Front Wig</h3>
+      <p>Premium quality, natural look.</p>
+      <button>Add to Cart</button>
+    </div>
+  </div>
+  <div class="gallery-item" data-category="wigs" style="display:flex;">
+    <img src="https://images.unsplash.com/photo-1583422403434-13bcf738db94?auto=format&fit=crop&w=600&q=80" alt="Curly Wig" />
+    <div class="info">
+      <h3>Curly Wig</h3>
+      <p>Soft, bouncy curls.</p>
+      <button>Add to Cart</button>
+    </div>
   </div>
 
-  <div class="section-title">Products</div>
-  <div class="products">
-    <div class="product">
-      <img src="body_wave.png" alt="Body Wave" />
-      <div class="product-name">Body Wave</div>
-      <div class="price">₦25,000</div>
+  <!-- Extensions -->
+  <div class="gallery-item" data-category="extensions" style="display:flex;">
+    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" alt="Straight Hair Extensions" />
+    <div class="info">
+      <h3>Straight Extensions</h3>
+      <p>Silky, smooth, and long-lasting.</p>
+      <button>Add to Cart</button>
     </div>
-    <div class="product">
-      <img src="straight_hair.png" alt="Straight Hair" />
-      <div class="product-name">Straight Hair</div>
-      <div class="price">₦23,000</div>
-    </div>
-    <div class="product">
-      <img src="curly_wig.png" alt="Curly Wig" />
-      <div class="product-name">Curly Wig</div>
-      <div class="price">₦45,000</div>
+  </div>
+  <div class="gallery-item" data-category="extensions" style="display:flex;">
+    <img src="https://images.unsplash.com/photo-1522335789203-aaa1c9c1f4ab?auto=format&fit=crop&w=600&q=80" alt="Wavy Extensions" />
+    <div class="info">
+      <h3>Wavy Extensions</h3>
+      <p>Natural waves with volume.</p>
+      <button>Add to Cart</button>
     </div>
   </div>
 
-  <div class="section-title" id="book">Contact Us</div>
-  <div class="contact">
-    📧 emekahair123@gmail.com<br/>
-    📞 +234 810 159 4128<br/>
-    💳 Pay to: Access Bank<br/>
-    Acc No: 0451036187<br/>
-    Name: Akachukwu Chukwuemeka Ewereaku
+  <!-- Accessories -->
+  <div class="gallery-item" data-category="accessories" style="display:flex;">
+    <img src="https://images.unsplash.com/photo-1590080877777-793b6c3e64cc?auto=format&fit=crop&w=600&q=80" alt="Hair Clips" />
+    <div class="info">
+      <h3>Decorative Hair Clips</h3>
+      <p>Elegant and stylish.</p>
+      <button>Add to Cart</button>
+    </div>
   </div>
+  <div class="gallery-item" data-category="accessories" style="display:flex;">
+    <img src="https://images.unsplash.com/photo-1512729362973-0eaf7d94be7c?auto=format&fit=crop&w=600&q=80" alt="Hair Bands" />
+    <div class="info">
+      <h3>Stylish Hair Bands</h3>
+      <p>Comfortable and trendy.</p>
+      <button>Add to Cart</button>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    &copy; 2025 Luxury Desiigner Hair. All rights reserved.
-  </footer>
+<footer>
+  <p>&copy; 2025 Luxury Desiigner Hair | Worldwide Delivery | Secure Payment</p>
+</footer>
 
-</body>
-</html>
+<script>
+  // Hero Slider Logic
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slider img.slide');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  setInterval(nextSlide, 4000);
+
+  // Tabs Filter with fade animation
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const galleryItems = document.querySelectorAll('.gallery-item
